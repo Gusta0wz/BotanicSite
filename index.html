@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores para Flavis • Jardim Encantado & Guia Botânico</title>
+  <link rel="stylesheet" href="flores.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Canvas de partículas ambientais, vaga-lumes e pétalas ao vento -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Barra Superior de Navegação das Abas Principais -->
+  <nav class="main-tabs-nav" aria-label="Navegação Principal">
+    <div class="tabs-switcher">
+      <button id="tab-btn-garden" class="main-tab-btn active" data-view="view-garden">
+        <span class="tab-icon">🌸</span>
+        <span class="tab-text">Jardim Interativo</span>
+      </button>
+      <button id="tab-btn-botanical" class="main-tab-btn" data-view="view-botanical">
+        <span class="tab-icon">📖</span>
+        <span class="tab-text">Particularidades das Flores</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       ABA 1: JARDIM INTERATIVO (TESTE DE PLANTAÇÃO & ANIMAÇÕES)
+       ========================================================================= -->
+  <main id="view-garden" class="view-section active">
+    <!-- Cabeçalho do Jardim -->
+    <header class="garden-header">
+      <h1 class="garden-title">FLORES PARA FLAVIS</h1>
+      <p class="instrucao">Toque na tela para desabrochar Rosas, Girassóis, Orquídeas e Lírios</p>
+      <div class="garden-intro-card">
+        <p class="garden-intro-text">
+          ✨ <em>As flores são expressões vivas de beleza, renovação e encantamento. Das <strong>rosas</strong> aveludadas que simbolizam carinho e afeto aos radiantes <strong>girassóis</strong> que perseguem a luz solar, passando pelas nobres <strong>orquídeas</strong> tropicais e pelos místicos <strong>lírios-aranha</strong> do outono, cada pétala traz cores vibrantes, vida e poesia para este jardim especial.</em>
+        </p>
+      </div>
+    </header>
+
+    <!-- Barra de Controles Translúcida do Jardim -->
+    <nav class="garden-controls" aria-label="Controles do Jardim">
+      <div class="filter-group">
+        <button class="filter-btn active" data-type="all" title="Todas as espécies aleatórias">
+          <span class="btn-icon">✨</span>
+          <span class="btn-label">Todas</span>
+        </button>
+        <button class="filter-btn" data-type="rose" title="Rosas em várias cores">
+          <span class="btn-icon">🌹</span>
+          <span class="btn-label">Rosas</span>
+        </button>
+        <button class="filter-btn" data-type="sunflower" title="Girassóis dourados e rubis">
+          <span class="btn-icon">🌻</span>
+          <span class="btn-label">Girassóis</span>
+        </button>
+        <button class="filter-btn" data-type="orchid" title="Orquídeas Phalaenopsis">
+          <span class="btn-icon">🌸</span>
+          <span class="btn-label">Orquídeas</span>
+        </button>
+        <button class="filter-btn" data-type="spider" title="Lírios da Aranha Lycoris">
+          <span class="btn-icon">🌺</span>
+          <span class="btn-label">Lírios-Aranha</span>
+        </button>
+      </div>
+
+      <div class="action-group">
+        <button id="btn-auto" class="action-btn" title="Ativar florescimento automático">
+          <span class="btn-icon">🪄</span>
+          <span class="btn-label">Auto Jardim</span>
+        </button>
+        <button id="btn-sound" class="action-btn" title="Ativar/Desativar efeitos sonoros suaves">
+          <span class="btn-icon">🔔</span>
+          <span class="btn-label">Som: Ligado</span>
+        </button>
+        <button id="btn-clear" class="action-btn" title="Limpar as flores da tela">
+          <span class="btn-icon">🧹</span>
+          <span class="btn-label">Limpar</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Toast de Espécie ao Plantar -->
+    <div id="species-toast" class="species-toast"></div>
+  </main>
+
+  <!-- =========================================================================
+       ABA 2: ABA EXCLUSIVA DE PARTICULARIDADES BOTÂNICAS & FONTES
+       ========================================================================= -->
+  <section id="view-botanical" class="view-section">
+    <div class="botanical-page-container">
+      
+      <!-- Cabeçalho da Aba Exclusiva -->
+      <header class="botanical-page-header">
+        <span class="botanical-kicker">Herbário Científico & Curiosidades</span>
+        <h2 class="botanical-page-title">Particularidades das Flores</h2>
+        <p class="botanical-page-desc">
+          Um estudo botânico aprofundado sobre a morfologia, os mecanismos biológicos, habitats naturais e períodos de floração das quatro espécies que compõem este jardim, com fundamentação e citações diretas das principais instituições botânicas internacionais.
+        </p>
+      </header>
+
+      <!-- Grade dos Cards Exclusivos -->
+      <div class="botanical-cards-grid">
+
+        <!-- CARD 1: ROSAS -->
+        <article class="exclusive-card rose-border">
+          <header class="exclusive-card-header rose-bg">
+            <div class="exclusive-badge">
+              <span class="badge-icon">🌹</span>
+              <div>
+                <span class="badge-family">Família Rosaceae • Gênero Rosa</span>
+                <h3 class="badge-name">Rosa <em>(Rosa grandiflora / Rosa spp.)</em></h3>
+              </div>
+            </div>
+          </header>
+
+          <div class="exclusive-card-content">
+            <div class="topic-block">
+              <h4 class="topic-title"><span class="t-icon">✨</span> Particularidades & Mecanismos Botânicos</h4>
+              <p class="topic-text">
+                As rosas apresentam uma das estruturas florais mais complexas do reino vegetal. Suas pétalas aveludadas desenvolvem-se em espirais concêntricas imbricadas (*filotaxia espiralada*), protegendo o estigma e os estames centrais contra variações climáticas. Seus caules são revestidos por <strong>acúleos</strong> (popularmente chamados de espinhos), que são projeções epidérmicas que auxiliam na defesa contra herbívoros e na fixação entre outras vegetações. As pétalas contêm glândulas microscópicas que sintetizam compostos aromáticos como <em>geraniol</em>, <em>nerol</em> e <em>citronelol</em>, responsáveis pela fragrância suave que atrai insetos polinizadores. No jardim, estão representadas em 8 cultivares: Vermelho Rubi, Rosa Suave, Amarelo Solar, Branco Marfim, Roxo Imperial, Azul Meia-Noite, Pêssego Coral e Rosa Negra Baccara.
+              </p>
+            </div>
+
+            <div class="topic-grid">
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">🌍</span> Onde Floresce (Habitat & Origem)</h4>
+                <p class="topic-text">
+                  Originárias principalmente das zonas temperadas e subtropicais do Hemisfério Norte (Ásia Central, Europa Ocidental, América do Norte e Oriente Médio). Prosperam em solos argilo-arenosos ricos em matéria orgânica, pH entre 6.0 e 6.8, com alta capacidade de drenagem e exposição direta de pelo menos 6 horas diárias de luz solar.
+                </p>
+              </div>
+
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">📅</span> Em que Estação Floresce</h4>
+                <div class="season-pill pill-spring">🌱 Primavera e Verão (Outubro a Março no Sul)</div>
+                <p class="topic-text">
+                  A quebra da dormência do inverno associada ao aumento de horas de luz (*fotoperíodo longo*) estimula os botões florais a se abrirem com força total na <strong>Primavera e ao longo do Verão</strong>, com cultivares modernas florescendo repetidamente até o meio do Outono.
+                </p>
+              </div>
+            </div>
+
+            <!-- Citação da Fonte -->
+            <footer class="exclusive-source-footer">
+              <span class="source-label">Fonte Científica Consultada:</span>
+              <a href="https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:30000055-2" target="_blank" rel="noopener noreferrer" class="source-external-link">
+                🌐 Royal Botanic Gardens, Kew (POWO) — Gênero Rosa spp. ↗
+              </a>
+            </footer>
+          </div>
+        </article>
+
+        <!-- CARD 2: GIRASSÓIS -->
+        <article class="exclusive-card sunflower-border">
+          <header class="exclusive-card-header sunflower-bg">
+            <div class="exclusive-badge">
+              <span class="badge-icon">🌻</span>
+              <div>
+                <span class="badge-family">Família Asteraceae • Gênero Helianthus</span>
+                <h3 class="badge-name">Girassol <em>(Helianthus annuus)</em></h3>
+              </div>
+            </div>
+          </header>
+
+          <div class="exclusive-card-content">
+            <div class="topic-block">
+              <h4 class="topic-title"><span class="t-icon">✨</span> Particularidades & Mecanismos Botânicos</h4>
+              <p class="topic-text">
+                O girassol é uma inflorescência composta (*capítulo ou pseudanto*), composta por milhares de flores individuais: as flores liguladas externas (pétalas amarelas ou avermelhadas que atraem polinizadores) e as flores tubulares centrais que produzem sementes ricas em lipídios e proteínas. O arranjo dessas flores centrais segue a <strong>sequência matemática de Fibonacci</strong> e o ângulo áureo (137,5°), garantindo a máxima densidade de empacotamento biológico. Na fase juvenil, a planta exibe <strong>heliotropismo</strong>: um relógio circadiano interno e o hormônio auxina fazem o caule alongar-se desigualmente, orientando a flor para o leste pela manhã e acompanhando o sol até o oeste ao entardecer.
+              </p>
+            </div>
+
+            <div class="topic-grid">
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">🌍</span> Onde Floresce (Habitat & Origem)</h4>
+                <p class="topic-text">
+                  Nativo da América do Norte e América Central, domesticado por povos indígenas há mais de 4.000 anos. Cultivado extensivamente em campos ensolarados do Brasil, Estados Unidos, Argentina e Ucrânia. Exige solos profundos, descompactados, ricos em nutrientes e climas quentes com sol pleno contínuo.
+                </p>
+              </div>
+
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">📅</span> Em que Estação Floresce</h4>
+                <div class="season-pill pill-summer">☀️ Pleno Verão ao Início do Outono (Dezembro a Março no Sul)</div>
+                <p class="topic-text">
+                  Desenvolve-se em ritmo acelerado durante os meses mais quentes e com maior incidência de radiação solar, florescendo entre <strong>70 e 90 dias após o plantio</strong>, mantendo as flores radiantes durante o pico do Verão.
+                </p>
+              </div>
+            </div>
+
+            <!-- Citação da Fonte -->
+            <footer class="exclusive-source-footer">
+              <span class="source-label">Fontes Científicas Consultadas:</span>
+              <a href="https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:119003-1" target="_blank" rel="noopener noreferrer" class="source-external-link">
+                🌐 Royal Botanic Gardens, Kew — Helianthus annuus L. ↗
+              </a>
+            </footer>
+          </div>
+        </article>
+
+        <!-- CARD 3: ORQUÍDEAS -->
+        <article class="exclusive-card orchid-border">
+          <header class="exclusive-card-header orchid-bg">
+            <div class="exclusive-badge">
+              <span class="badge-icon">🌸</span>
+              <div>
+                <span class="badge-family">Família Orchidaceae • Gênero Phalaenopsis</span>
+                <h3 class="badge-name">Orquídea Borboleta <em>(Phalaenopsis spp.)</em></h3>
+              </div>
+            </div>
+          </header>
+
+          <div class="exclusive-card-content">
+            <div class="topic-block">
+              <h4 class="topic-title"><span class="t-icon">✨</span> Particularidades & Mecanismos Botânicos</h4>
+              <p class="topic-text">
+                A <em>Phalaenopsis</em> é uma planta <strong>epífita monopodial</strong>: na natureza, ela cresce fixada nos troncos e galhos das árvores sem parasitá-las, utilizando suas raízes espessas revestidas por uma camada esponjosa de células mortas chamada <strong>velame</strong>, capaz de reter umidade do ar e nutrientes dissolvidos na chuva. Suas flores possuem simetria zigomórfica (bilateral) refinada, com 3 sépalas e 3 pétalas, das quais a pétala inferior modificou-se em um <strong>labelo tridimensional</strong> colorido e pontilhado que funciona como pista de pouso anatômica para insetos. A coluna central integra os órgãos masculinos e femininos (*ginostêmio*), e as floradas podem durar intactas de 2 a 3 meses.
+              </p>
+            </div>
+
+            <div class="topic-grid">
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">🌍</span> Onde Floresce (Habitat & Origem)</h4>
+                <p class="topic-text">
+                  Florestas tropicais pluviais do Sudeste Asiático (Indonésia, Filipinas, Malásia, sul da China e Taiwan) e norte da Austrália. Prospera sob luz difusa/filtrada pelas copas das árvores, umidade do ar entre 60% e 80% e temperaturas amenas a quentes (20°C a 30°C).
+                </p>
+              </div>
+
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">📅</span> Em que Estação Floresce</h4>
+                <div class="season-pill pill-winter-spring">❄️ Fim do Inverno e por toda a Primavera</div>
+                <p class="topic-text">
+                  A diferenciação floral é ativada por uma queda sutil de temperatura noturna (choque térmico no Outono/Inverno). As hastes florais se expandem e as flores desabrocham abundantemente do <strong>fim do Inverno até meados da Primavera</strong>.
+                </p>
+              </div>
+            </div>
+
+            <!-- Citação da Fonte -->
+            <footer class="exclusive-source-footer">
+              <span class="source-label">Fontes Científicas Consultadas:</span>
+              <a href="https://www.missouribotanicalgarden.org/PlantFinder/PlantFinderDetails.aspx?taxonid=264770" target="_blank" rel="noopener noreferrer" class="source-external-link">
+                🌐 Missouri Botanical Garden — Phalaenopsis (Orchidaceae) ↗
+              </a>
+            </footer>
+          </div>
+        </article>
+
+        <!-- CARD 4: LÍRIOS DA ARANHA -->
+        <article class="exclusive-card spider-border">
+          <header class="exclusive-card-header spider-bg">
+            <div class="exclusive-badge">
+              <span class="badge-icon">🌺</span>
+              <div>
+                <span class="badge-family">Família Amaryllidaceae • Gênero Lycoris</span>
+                <h3 class="badge-name">Lírio da Aranha Vermelho <em>(Lycoris radiata / Higanbana)</em></h3>
+              </div>
+            </div>
+          </header>
+
+          <div class="exclusive-card-content">
+            <div class="topic-block">
+              <h4 class="topic-title"><span class="t-icon">✨</span> Particularidades & Mecanismos Botânicos</h4>
+              <p class="topic-text">
+                Famoso na tradição asiática como <em>Higanbana</em> (a Flor do Equinócio), o lírio da aranha possui uma das estratégias fenológicas mais singulares do reino vegetal, conhecida como <strong>hábito histeranto</strong>: <em>as flores e as folhas nunca coexistem no mesmo momento</em>. No final do verão, o bulbo subterrâneo emite uma haste nua que cresce até 50 cm em poucos dias e desabrocha em uma umbela de 4 a 6 flores vermelho-carmesim com 6 tépalas onduladas e recurvadas para trás, de onde projetam-se 6 estames longos e curvos que lembram patas de aranha. Somente após a flor fenecer completamente é que as folhas verdes brotam para realizar fotossíntese durante o inverno.
+              </p>
+            </div>
+
+            <div class="topic-grid">
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">🌍</span> Onde Floresce (Habitat & Origem)</h4>
+                <p class="topic-text">
+                  Nativo da China, Japão e Península Coreana. Ocorre naturalmente em margens de riachos, encostas úmidas, bordas de florestas e nos caminhos entre arrozais, onde seus bulbos contendo alcalóides defensivos (como licorina) eram plantados para proteger diques e colheitas contra roedores.
+                </p>
+              </div>
+
+              <div class="topic-block">
+                <h4 class="topic-title"><span class="t-icon">📅</span> Em que Estação Floresce</h4>
+                <div class="season-pill pill-autumn">🍂 Final do Verão e Equinócio de Outono (Março no Sul / Setembro no Japão)</div>
+                <p class="topic-text">
+                  Desabrocha de forma repentina e espetacular exatamente durante a semana do <strong>Equinócio de Outono</strong>, estimulada pelas primeiras chuvas que marcam o término da estação quente.
+                </p>
+              </div>
+            </div>
+
+            <!-- Citação da Fonte -->
+            <footer class="exclusive-source-footer">
+              <span class="source-label">Fontes Científicas Consultadas:</span>
+              <a href="https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:65134-1" target="_blank" rel="noopener noreferrer" class="source-external-link">
+                🌐 Royal Botanic Gardens, Kew — Lycoris radiata (L'Hér.) Herb. ↗
+              </a>
+            </footer>
+          </div>
+        </article>
+
+        <!-- CARD CONSOLIDADO DE FONTES & REFERÊNCIAS OFICIAIS -->
+        <article class="exclusive-card sources-summary-card">
+          <header class="exclusive-card-header sources-summary-bg">
+            <div class="exclusive-badge">
+              <span class="badge-icon">🏛️</span>
+              <div>
+                <span class="badge-family">Instituições Botânicas Internacionais</span>
+                <h3 class="badge-name">Fontes e Referências Científicas Consultadas</h3>
+              </div>
+            </div>
+          </header>
+
+          <div class="exclusive-card-content">
+            <p class="topic-text">
+              Todas as informações sobre taxonomia, morfologia, habitats, fenologia e ciclos sazonais apresentadas neste herbário foram verificadas e embasadas nos dados públicos das mais respeitadas instituições e acervos botânicos do mundo:
+            </p>
+
+            <div class="official-links-grid">
+              <a href="https://powo.science.kew.org/" target="_blank" rel="noopener noreferrer" class="official-link-card">
+                <span class="link-icon">🏛️</span>
+                <div class="link-details">
+                  <strong>Royal Botanic Gardens, Kew — POWO</strong>
+                  <span>Plants of the World Online • Base taxonômica global de espécies</span>
+                  <span class="url-text">powo.science.kew.org</span>
+                </div>
+                <span class="arrow-icon">↗</span>
+              </a>
+
+              <a href="https://www.missouribotanicalgarden.org/PlantFinder/PlantFinderSearch.aspx" target="_blank" rel="noopener noreferrer" class="official-link-card">
+                <span class="link-icon">🌿</span>
+                <div class="link-details">
+                  <strong>Missouri Botanical Garden — Plant Finder</strong>
+                  <span>Enciclopédia de biologia vegetal, habitats e cultivo</span>
+                  <span class="url-text">missouribotanicalgarden.org</span>
+                </div>
+                <span class="arrow-icon">↗</span>
+              </a>
+
+              <a href="https://floradobrasil.jbrj.gov.br/" target="_blank" rel="noopener noreferrer" class="official-link-card">
+                <span class="link-icon">🇧🇷</span>
+                <div class="link-details">
+                  <strong>Jardim Botânico do Rio de Janeiro (JBRJ)</strong>
+                  <span>Flora e Funga do Brasil • Herbário Virtual e acervo botânico</span>
+                  <span class="url-text">floradobrasil.jbrj.gov.br</span>
+                </div>
+                <span class="arrow-icon">↗</span>
+              </a>
+
+              <a href="https://www.britannica.com/plant/flower" target="_blank" rel="noopener noreferrer" class="official-link-card">
+                <span class="link-icon">📚</span>
+                <div class="link-details">
+                  <strong>Encyclopaedia Britannica — Plant Biology</strong>
+                  <span>Morfologia floral, fotoperiodismo e evolução vegetal</span>
+                  <span class="url-text">britannica.com/plant/flower</span>
+                </div>
+                <span class="arrow-icon">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Script principal do jardim e controle de abas -->
+  <script src="flores.js" defer></script>
+</body>
+</html>
+
