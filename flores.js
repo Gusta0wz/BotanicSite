@@ -738,9 +738,13 @@
     wrapper.style.left = `${x}px`;
     wrapper.style.top = `${y}px`;
 
+    const isMobile = window.innerWidth <= 768;
+    const minScale = isMobile ? 0.75 : 0.84;
+    const maxScale = isMobile ? 1.02 : 1.20;
+
     const bloom = document.createElement('div');
     bloom.className = 'flower-bloom';
-    bloom.style.setProperty('--final-scale', randRange(0.82, 1.22).toFixed(2));
+    bloom.style.setProperty('--final-scale', randRange(minScale, maxScale).toFixed(2));
     bloom.style.setProperty('--initial-rot', `${randRange(-18, 18).toFixed(1)}deg`);
 
     const sway = document.createElement('div');
@@ -913,6 +917,34 @@
       });
     });
 
+    // Toggle do card explicativo no jardim (Mobile & Desktop)
+    const btnToggleIntro = document.getElementById('btn-toggle-intro');
+    const gardenIntroCard = document.getElementById('garden-intro-card');
+    if (btnToggleIntro && gardenIntroCard) {
+      btnToggleIntro.addEventListener('click', (e) => {
+        e.stopPropagation();
+        gardenIntroCard.classList.toggle('collapsed');
+        const isCollapsed = gardenIntroCard.classList.contains('collapsed');
+        const label = btnToggleIntro.querySelector('.intro-toggle-label');
+        if (label) label.textContent = isCollapsed ? 'Mensagem' : 'Ocultar';
+      });
+    }
+
+    // Pílulas de navegação rápida na aba de Particularidades
+    const quickNavPills = document.querySelectorAll('.quick-nav-pill');
+    quickNavPills.forEach((pill) => {
+      pill.addEventListener('click', (e) => {
+        e.stopPropagation();
+        quickNavPills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        const targetId = pill.dataset.jump;
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
     // Ações do jardim
     const btnAuto = document.getElementById('btn-auto');
     if (btnAuto) {
@@ -920,14 +952,15 @@
         e.stopPropagation();
         isAutoMode = !isAutoMode;
         btnAuto.classList.toggle('active-state', isAutoMode);
-        btnAuto.querySelector('.btn-label').textContent = isAutoMode ? 'Parar Jardim' : 'Auto Jardim';
+        btnAuto.querySelector('.btn-label').textContent = isAutoMode ? 'Parar' : 'Auto';
 
         if (isAutoMode) {
           autoTimer = setInterval(() => {
             if (currentActiveView !== 'view-garden') return;
-            const margin = 80;
+            const isMobile = window.innerWidth <= 768;
+            const margin = isMobile ? 35 : 75;
             const rx = randRange(margin, window.innerWidth - margin);
-            const ry = randRange(margin + 70, window.innerHeight - margin - 50);
+            const ry = randRange(margin + 55, window.innerHeight - margin - 45);
             plantFlower(rx, ry);
           }, 850);
         } else {
