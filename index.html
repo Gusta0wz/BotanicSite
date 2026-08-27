@@ -2,25 +2,57 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jardim Encantado & Guia Botânico</title>
-  <link rel="stylesheet" href="flores.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO & Metadados de Produção -->
+  <title>Flores para Flavis • Jardim Encantado & Guia Botânico</title>
+  <meta name="description" content="Um jardim interativo encantado com rosas realistas em 8 cores, girassóis, orquídeas e lírios da aranha, além de um herbário botânico com fontes científicas.">
+  <meta name="keywords" content="flores, jardim interativo, rosas, girassóis, orquídeas, lírio da aranha, botânica, animações, Web Audio">
+  <meta name="author" content="Flavis">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Redes Sociais -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Flores para Flavis • Jardim Encantado & Guia Botânico">
+  <meta property="og:description" content="Desabroche rosas, girassóis, orquídeas e lírios com partículas e som, e descubra as particularidades botânicas de cada espécie.">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Flores para Flavis • Jardim Encantado">
+  <meta name="twitter:description" content="Jardim encantado interativo e herbário botânico com fontes científicas.">
+
+  <!-- Otimização Mobile & PWA -->
+  <meta name="theme-color" content="#050510">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Flores Flavis">
+
+  <!-- Favicon Embutido em SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+
+  <!-- Recursos & Fontes com Pré-conexão de Alta Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Folha de Estilos -->
+  <link rel="stylesheet" href="flores.css">
 </head>
 <body>
   <!-- Canvas de partículas ambientais, vaga-lumes e pétalas ao vento -->
   <canvas id="ambient-canvas"></canvas>
 
-  <!-- Barra Superior de Navegação das Abas Principais -->
+  <!-- Barra Superior de Navegação das Abas Principais (Mobile & Desktop) -->
   <nav class="main-tabs-nav" aria-label="Navegação Principal">
     <div class="tabs-switcher">
-      <button id="tab-btn-garden" class="main-tab-btn active" data-view="view-garden">
+      <button id="tab-btn-garden" class="main-tab-btn active" data-view="view-garden" aria-selected="true">
         <span class="tab-icon">🌸</span>
         <span class="tab-text">Jardim Interativo</span>
       </button>
-      <button id="tab-btn-botanical" class="main-tab-btn" data-view="view-botanical">
+      <button id="tab-btn-botanical" class="main-tab-btn" data-view="view-botanical" aria-selected="false">
         <span class="tab-icon">📖</span>
         <span class="tab-text">Particularidades das Flores</span>
       </button>
@@ -30,21 +62,30 @@
   <!-- =========================================================================
        ABA 1: JARDIM INTERATIVO (TESTE DE PLANTAÇÃO & ANIMAÇÕES)
        ========================================================================= -->
-  <main id="view-garden" class="view-section active">
+  <main id="view-garden" class="view-section active" role="main">
     <!-- Cabeçalho do Jardim -->
     <header class="garden-header">
-      <h1 class="garden-title">BOTANIC SITE</h1>
+      <h1 class="garden-title">FLORES PARA FLAVIS</h1>
       <p class="instrucao">Toque na tela para desabrochar Rosas, Girassóis, Orquídeas e Lírios</p>
-      <div class="garden-intro-card">
-        <p class="garden-intro-text">
-          ✨ <em>As flores são expressões vivas de beleza, renovação e encantamento. Das <strong>rosas</strong> aveludadas que simbolizam carinho e afeto aos radiantes <strong>girassóis</strong> que perseguem a luz solar, passando pelas nobres <strong>orquídeas</strong> tropicais e pelos místicos <strong>lírios-aranha</strong> do outono, cada pétala traz cores vibrantes, vida e poesia para este jardim especial.</em>
-        </p>
+      
+      <!-- Card Explicativo com Botão de Recolher no Mobile -->
+      <div class="garden-intro-wrapper">
+        <div id="garden-intro-card" class="garden-intro-card">
+          <p class="garden-intro-text">
+            ✨ <em>As flores são expressões vivas de beleza, renovação e encantamento. Das <strong>rosas</strong> aveludadas que simbolizam carinho aos radiantes <strong>girassóis</strong> solares, passando pelas nobres <strong>orquídeas</strong> tropicais e pelos místicos <strong>lírios-aranha</strong> do outono, cada toque traz vida e poesia para este jardim especial.</em>
+          </p>
+        </div>
+        <button id="btn-toggle-intro" class="intro-toggle-btn" title="Mostrar/Ocultar mensagem" aria-label="Alternar exibição da mensagem explicativa">
+          <span class="intro-toggle-icon">✨</span>
+          <span class="intro-toggle-label">Mensagem</span>
+        </button>
       </div>
     </header>
 
     <!-- Barra de Controles Translúcida do Jardim -->
     <nav class="garden-controls" aria-label="Controles do Jardim">
-      <div class="filter-group">
+      <!-- Grupo de Espécies -->
+      <div class="filter-group scrollable-touch-bar">
         <button class="filter-btn active" data-type="all" title="Todas as espécies aleatórias">
           <span class="btn-icon">✨</span>
           <span class="btn-label">Todas</span>
@@ -63,20 +104,21 @@
         </button>
         <button class="filter-btn" data-type="spider" title="Lírios da Aranha Lycoris">
           <span class="btn-icon">🌺</span>
-          <span class="btn-label">Lírios-Aranha</span>
+          <span class="btn-label">Lírios</span>
         </button>
       </div>
 
+      <!-- Grupo de Ações -->
       <div class="action-group">
         <button id="btn-auto" class="action-btn" title="Ativar florescimento automático">
           <span class="btn-icon">🪄</span>
-          <span class="btn-label">Auto Jardim</span>
+          <span class="btn-label">Auto</span>
         </button>
-        <button id="btn-sound" class="action-btn" title="Ativar/Desativar efeitos sonoros suaves">
+        <button id="btn-sound" class="action-btn" title="Ativar/Desativar efeitos sonoros">
           <span class="btn-icon">🔔</span>
-          <span class="btn-label">Som: Ligado</span>
+          <span class="btn-label">Som</span>
         </button>
-        <button id="btn-clear" class="action-btn" title="Limpar as flores da tela">
+        <button id="btn-clear" class="action-btn" title="Limpar flores da tela">
           <span class="btn-icon">🧹</span>
           <span class="btn-label">Limpar</span>
         </button>
@@ -84,13 +126,13 @@
     </nav>
 
     <!-- Toast de Espécie ao Plantar -->
-    <div id="species-toast" class="species-toast"></div>
+    <div id="species-toast" class="species-toast" aria-live="polite"></div>
   </main>
 
   <!-- =========================================================================
        ABA 2: ABA EXCLUSIVA DE PARTICULARIDADES BOTÂNICAS & FONTES
        ========================================================================= -->
-  <section id="view-botanical" class="view-section">
+  <section id="view-botanical" class="view-section" aria-label="Herbário e Particularidades Botânicas">
     <div class="botanical-page-container">
       
       <!-- Cabeçalho da Aba Exclusiva -->
@@ -100,13 +142,22 @@
         <p class="botanical-page-desc">
           Um estudo botânico aprofundado sobre a morfologia, os mecanismos biológicos, habitats naturais e períodos de floração das quatro espécies que compõem este jardim, com fundamentação e citações diretas das principais instituições botânicas internacionais.
         </p>
+
+        <!-- Navegação Rápida em Pílulas (Sticky no Mobile) -->
+        <nav class="botanical-quick-nav" aria-label="Acesso Rápido às Flores">
+          <button class="quick-nav-pill active" data-jump="card-bio-rose">🌹 Rosas</button>
+          <button class="quick-nav-pill" data-jump="card-bio-sunflower">🌻 Girassóis</button>
+          <button class="quick-nav-pill" data-jump="card-bio-orchid">🌸 Orquídeas</button>
+          <button class="quick-nav-pill" data-jump="card-bio-spider">🌺 Lírios</button>
+          <button class="quick-nav-pill" data-jump="card-bio-sources">🏛️ Fontes</button>
+        </nav>
       </header>
 
       <!-- Grade dos Cards Exclusivos -->
       <div class="botanical-cards-grid">
 
         <!-- CARD 1: ROSAS -->
-        <article class="exclusive-card rose-border">
+        <article id="card-bio-rose" class="exclusive-card rose-border">
           <header class="exclusive-card-header rose-bg">
             <div class="exclusive-badge">
               <span class="badge-icon">🌹</span>
@@ -153,7 +204,7 @@
         </article>
 
         <!-- CARD 2: GIRASSÓIS -->
-        <article class="exclusive-card sunflower-border">
+        <article id="card-bio-sunflower" class="exclusive-card sunflower-border">
           <header class="exclusive-card-header sunflower-bg">
             <div class="exclusive-badge">
               <span class="badge-icon">🌻</span>
@@ -200,7 +251,7 @@
         </article>
 
         <!-- CARD 3: ORQUÍDEAS -->
-        <article class="exclusive-card orchid-border">
+        <article id="card-bio-orchid" class="exclusive-card orchid-border">
           <header class="exclusive-card-header orchid-bg">
             <div class="exclusive-badge">
               <span class="badge-icon">🌸</span>
@@ -247,7 +298,7 @@
         </article>
 
         <!-- CARD 4: LÍRIOS DA ARANHA -->
-        <article class="exclusive-card spider-border">
+        <article id="card-bio-spider" class="exclusive-card spider-border">
           <header class="exclusive-card-header spider-bg">
             <div class="exclusive-badge">
               <span class="badge-icon">🌺</span>
@@ -294,7 +345,7 @@
         </article>
 
         <!-- CARD CONSOLIDADO DE FONTES & REFERÊNCIAS OFICIAIS -->
-        <article class="exclusive-card sources-summary-card">
+        <article id="card-bio-sources" class="exclusive-card sources-summary-card">
           <header class="exclusive-card-header sources-summary-bg">
             <div class="exclusive-badge">
               <span class="badge-icon">🏛️</span>
